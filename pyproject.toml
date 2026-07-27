@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "video-subtitle-removal-captioning"
+version = "0.1.0"
+description = "Source-only subtitle captioning and OpenCV inpainting toolkit"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "Project contributors"}]
+dependencies = [
+  "numpy>=1.24",
+  "opencv-python>=4.8",
+]
+
+[project.optional-dependencies]
+ocr = ["paddleocr>=2.7,<3", "paddlepaddle>=2.6,<3"]
+asr = ["faster-whisper>=1.0"]
+test = ["pytest>=8"]
+
+[project.scripts]
+subtitle-toolkit = "subtitle_toolkit.__main__:main"
+subtitle-caption = "subtitle_toolkit.caption:main"
+subtitle-remove = "subtitle_toolkit.removal:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

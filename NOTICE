@@ -1,0 +1,14 @@
+Video Subtitle Removal Captioning
+Copyright 2026 Project contributors
+
+This product includes software developed by project contributors and is licensed
+under the Apache License, Version 2.0. See LICENSE.
+
+The subtitle-removal workflow was informed by the Apache-2.0 project
+YaoFANGUK/video-subtitle-remover (https://github.com/YaoFANGUK/video-subtitle-remover),
+reviewed at commit e109b9ddc1d0e8f153199dfa05c1d767546906d8. This repository does not vendor
+that project's source tree, model weights, binaries, or advanced inpainting
+backends. See THIRD_PARTY_NOTICES.md for the exact boundary.
+
+This repository is private and pre-publication. A public release requires a new
+source, dependency, model, data, trademark, privacy, and provenance audit.

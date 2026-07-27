@@ -1,0 +1,17 @@
+{
+  "series_style": {
+    "font": "Arial",
+    "font_size_ratio": 0.055,
+    "outline_ratio": 0.035,
+    "primary_color": "#FFFFFF",
+    "outline_color": "#000000",
+    "alignment": 2,
+    "baseline_ratio": 0.9,
+    "center_offset_x": 0,
+    "max_width_ratio": 0.82,
+    "min_display_duration": 0.25,
+    "proper_names": []
+  },
+  "profiles": {},
+  "resolution_profiles": {}
+}

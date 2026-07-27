@@ -1,0 +1,9 @@
+{
+  "roi": [0.55, 0.98, 0.0, 1.0],
+  "confidence": 0.8,
+  "padding": 3,
+  "dilation": 2,
+  "inpaint_radius": 3,
+  "inpaint_method": "telea",
+  "ocr_language": "en"
+}
