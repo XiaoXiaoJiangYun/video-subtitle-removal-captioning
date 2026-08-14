@@ -13,6 +13,8 @@ Use the repository's existing commands rather than creating ad hoc video scripts
   `subtitle-toolkit caption`.
 - For hardcoded subtitle detection, mask caching, or OpenCV inpainting, use
   `subtitle-toolkit remove`.
+- For a reviewed correction video and explicit approved frame intervals, use
+  `subtitle-toolkit splice`; it does not generate corrected frames itself.
 - Do not claim STTN or LaMa support. Only OpenCV `telea` and `ns` are implemented.
 
 ## Prepare safely
@@ -57,6 +59,22 @@ The cache identity check protects
 against applying boxes to a different source. Explain that OpenCV inpainting may
 blur textured or moving backgrounds and that OCR false positives can erase real
 content.
+
+## Splice reviewed residual fixes
+
+Use this only after candidates have been visually compared with source frames and a
+separately audited process has produced a full corrected staging video. Store approved
+zero-based inclusive intervals in JSON, preserve an immutable backup, and write to a
+new output path:
+
+```bash
+subtitle-toolkit splice --current ACCEPTED.mp4 --corrected CORRECTED.mp4 \
+  --intervals REVIEWED.json --output NEW_OUTPUT.mp4
+```
+
+The command copies audio from the accepted video and refuses overwrite. It re-encodes
+the selected frame stream, so require visual boundary review and full decode validation
+before publishing. Never infer approved intervals from OCR metadata alone.
 
 ## Validate
 

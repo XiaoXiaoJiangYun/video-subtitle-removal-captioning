@@ -4,7 +4,9 @@ A source-only Python toolkit for two practical workflows:
 
 - build SRT/ASS captions and optionally burn them into video with FFmpeg;
 - detect subtitle boxes with externally installed PaddleOCR, cache detections,
-  create masks, and remove pixels with OpenCV Telea or Navier-Stokes inpainting.
+  create masks, and remove pixels with OpenCV Telea or Navier-Stokes inpainting;
+- audit line-shaped and square single-glyph residual candidates, then splice only
+  human-reviewed correction intervals while preserving the current audio stream.
 
 **Repository status:** private and pre-publication. It has been staged for audit,
 not approved for publication. Any public release requires a new source,
@@ -106,10 +108,44 @@ the same exclusive unique-temp/no-overwrite policy.
 Only OpenCV Telea and Navier-Stokes removal are included. Advanced backends from the
 original/private workflow (including ProPainter, RAFT, STTN, LaMa, and vendored
 scene-detection implementations) are deliberately excluded because their source,
-license, model, and provenance were not suitable for inclusion. OpenCV inpainting
-is local spatial reconstruction, not temporal generative video inpainting;
-difficult backgrounds may need manual masks or a different, separately audited
-implementation.
+license, model, and provenance were not suitable for inclusion. The interval splicer
+accepts a separately produced, reviewed correction video but does not provide or claim
+any advanced inpainting backend. OpenCV inpainting is local spatial reconstruction,
+not temporal generative video inpainting; difficult backgrounds may need manual masks
+or a different, separately audited implementation.
+
+## Audit single-character residuals and splice reviewed fixes
+
+The residual helpers add a square-glyph-friendly geometry channel alongside the
+existing line geometry. They are candidate generators only: image details, clothing,
+faces, and effects can be false positives, so every candidate must be compared against
+the source and reviewed before repair. Boundary helpers can force inspection around
+scene cuts and mask-track starts/ends instead of relying only on periodic samples.
+
+After an external, separately audited process has created a full corrected staging
+video, list only approved zero-based inclusive intervals in a JSON file:
+
+```json
+[
+  {"start": 768, "end": 805},
+  {"start": 907, "end": 941}
+]
+```
+
+Then splice only those frames into the already accepted current output:
+
+```bash
+subtitle-toolkit splice --current accepted.mp4 --corrected corrected-staging.mp4 \
+  --intervals reviewed-intervals.json --output reviewed-fix.mp4
+```
+
+The command refuses overwrite, requires matching frame count/dimensions/FPS, copies
+audio from the current video, fully decodes the staged result, validates its decoded
+frame count, and atomically publishes it. Because the video stream is encoded once to
+join frames from two inputs, "preserve outside intervals" means frame selection is
+preserved; decoded pixels outside intervals can differ slightly because of H.264
+encoding. Keep an immutable backup and perform visual boundary review before replacing
+an accepted output.
 
 ## Tests
 

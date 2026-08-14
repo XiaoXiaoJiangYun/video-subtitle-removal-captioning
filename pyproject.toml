@@ -24,6 +24,7 @@ test = ["pytest>=8"]
 subtitle-toolkit = "subtitle_toolkit.__main__:main"
 subtitle-caption = "subtitle_toolkit.caption:main"
 subtitle-remove = "subtitle_toolkit.removal:main"
+subtitle-splice = "subtitle_toolkit.residual:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
