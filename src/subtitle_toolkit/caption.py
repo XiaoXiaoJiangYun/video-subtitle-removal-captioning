@@ -225,6 +225,30 @@ def apply_novel_matches(cues: list[Cue], terms: list[str], threshold: float = .9
                 break
 
 
+def apply_exact_replacements(cues: list[Cue], replacements: Any) -> None:
+    """Apply only explicitly configured literal terminology replacements."""
+    if replacements is None:
+        return
+    if not isinstance(replacements, dict):
+        raise ValueError("exact_replacements must be a JSON object")
+    ordered: list[tuple[int, str, str]] = []
+    for index, (source, target) in enumerate(replacements.items()):
+        if not isinstance(source, str) or not source:
+            raise ValueError("exact_replacements keys must be non-empty strings")
+        if not isinstance(target, str) or not target:
+            raise ValueError("exact_replacements values must be non-empty strings")
+        ordered.append((index, source, target))
+    for cue in cues:
+        for _, source, target in sorted(ordered, key=lambda item: (-len(item[1]), item[0])):
+            if source not in cue.text or source == target:
+                continue
+            before = cue.text
+            cue.text = cue.text.replace(source, target)
+            cue.candidates.append({"type": "exact_replacement", "from": source, "to": target,
+                                   "occurrences": before.count(source), "accepted": True})
+            cue.source = f"{cue.source}+exact_replacement"
+
+
 def ass_time(seconds: float) -> str:
     centiseconds = max(0, round(seconds * 100))
     h, centiseconds = divmod(centiseconds, 360000)
@@ -607,6 +631,7 @@ def process_media(media: Path, args: argparse.Namespace) -> dict[str, Any]:
     document.cues = merge_timeline(document.cues, reference, ocr)
     apply_novel_matches(document.cues, novel_terms(args.novel))
     document.style = select_style(stem, args.style_config, document.media)
+    apply_exact_replacements(document.cues, document.style.get("exact_replacements"))
     document.cues = semantic_split_cues(document.cues, document.media, document.style)
     errors = validate_cues(document.cues, duration)
     if errors: raise ValueError("; ".join(errors))

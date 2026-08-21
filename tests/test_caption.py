@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 
 from subtitle_toolkit.caption import (
-    Cue, atomic_write, load_reusable_asr_cache, main, natural_key, parse_srt,
-    render_ass, render_srt, save_asr_cache, semantic_split_cues,
-    strip_terminal_period,
+    Cue, apply_exact_replacements, atomic_write, load_reusable_asr_cache, main,
+    natural_key, parse_srt, render_ass, render_srt, save_asr_cache,
+    semantic_split_cues, strip_terminal_period,
 )
 from subtitle_toolkit.__main__ import main as dispatcher_main
 
@@ -17,6 +17,30 @@ def test_caption_behavior_matches_contract():
     assert (cue.start, cue.end, cue.text) == (1.25, 2.5, "first second")
     assert strip_terminal_period("Question?") == "Question?"
     assert strip_terminal_period("Statement.") == "Statement"
+
+
+def test_exact_replacements_are_literal_finite_and_auditable():
+    cue = Cue(1, 2, "north gate and north gate", asr_text="north gait and north gait")
+    apply_exact_replacements(cue_list := [cue], {"north gate": "North Gate", "gate": "door"})
+    assert cue_list[0].text == "North Gate and North Gate"
+    assert cue_list[0].asr_text == "north gait and north gait"
+    assert (cue_list[0].start, cue_list[0].end) == (1, 2)
+    assert cue_list[0].candidates == [{
+        "type": "exact_replacement", "from": "north gate", "to": "North Gate",
+        "occurrences": 2, "accepted": True,
+    }]
+    untouched = Cue(2, 3, "northern gate")
+    apply_exact_replacements([untouched], {"north gate": "North Gate"})
+    assert untouched.text == "northern gate"
+
+
+def test_exact_replacements_reject_invalid_configuration():
+    with pytest.raises(ValueError, match="JSON object"):
+        apply_exact_replacements([], ["invalid"])
+    with pytest.raises(ValueError, match="non-empty strings"):
+        apply_exact_replacements([], {"": "replacement"})
+    with pytest.raises(ValueError, match="non-empty strings"):
+        apply_exact_replacements([], {"source": 1})
 
 
 def test_ass_is_single_line_and_explicitly_positioned():

@@ -79,7 +79,9 @@ subtitle-toolkit caption --input ./input --output ./output --run-asr \
 
 Add `--render` to burn ASS captions through FFmpeg. Existing targets cause a
 failure rather than being replaced. Use `--files`, `--start-after`, and `--limit`
-for deterministic sequential batches.
+for deterministic sequential batches. The optional `exact_replacements` object
+in the style config applies only the listed literal terminology corrections,
+longest source first; it does not perform fuzzy or global character replacement.
 
 ## Remove subtitles
 

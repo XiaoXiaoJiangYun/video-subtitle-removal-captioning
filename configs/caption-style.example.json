@@ -10,7 +10,10 @@
     "center_offset_x": 0,
     "max_width_ratio": 0.82,
     "min_display_duration": 0.25,
-    "proper_names": []
+    "proper_names": [],
+    "exact_replacements": {
+      "north gate": "North Gate"
+    }
   },
   "profiles": {},
   "resolution_profiles": {}
