@@ -2,15 +2,14 @@
 
 ## Supported versions
 
-This repository is private and pre-publication; no version currently receives a
-public security-support commitment.
+The `main` branch is the supported public source release. No binary, model, media,
+or generated-artifact distribution is provided by this repository.
 
 ## Reporting
 
-Report suspected vulnerabilities privately to the repository owner through the
-private GitHub security-advisory channel once the repository exists. Do not open
-a public issue containing exploit details, credentials, private paths, personal
-data, or sample media.
+Report suspected vulnerabilities privately through the repository owner's GitHub
+security-advisory channel. Do not open a public issue containing exploit details,
+credentials, private paths, personal data, or sample media.
 
 ## Operational safety
 
@@ -19,4 +18,5 @@ Use isolated environments, validate paths, pin dependencies for deployments, and
 review FFmpeg/PaddleOCR advisories. The tools refuse to overwrite outputs, but
 operators remain responsible for backups and for media/data rights.
 
-Public release requires a new security and privacy audit.
+Public source status does not grant rights to third-party media, voices, faces,
+models, datasets, codecs, or executables.

@@ -8,9 +8,9 @@ A source-only Python toolkit for two practical workflows:
 - audit line-shaped and square single-glyph residual candidates, then splice only
   human-reviewed correction intervals while preserving the current audio stream.
 
-**Repository status:** private and pre-publication. It has been staged for audit,
-not approved for publication. Any public release requires a new source,
-dependency, model, data, trademark, privacy, and provenance audit.
+**Repository status:** public source release. The repository contains source code,
+tests, documentation, and example configuration only; media, models, generated
+artifacts, and machine-specific data remain excluded.
 
 The repository intentionally contains no media, generated captions, caches,
 logs, models, binaries, private paths, company data, SVN metadata, nested Git

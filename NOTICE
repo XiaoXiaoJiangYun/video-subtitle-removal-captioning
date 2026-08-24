@@ -10,5 +10,6 @@ reviewed at commit e109b9ddc1d0e8f153199dfa05c1d767546906d8. This repository doe
 that project's source tree, model weights, binaries, or advanced inpainting
 backends. See THIRD_PARTY_NOTICES.md for the exact boundary.
 
-This repository is private and pre-publication. A public release requires a new
-source, dependency, model, data, trademark, privacy, and provenance audit.
+This public release contains source code, tests, documentation, and example
+configuration only. It does not distribute media, captions, caches, logs, models,
+binaries, private paths, or generated artifacts.
