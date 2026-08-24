@@ -1,5 +1,7 @@
 # Video Subtitle Removal Captioning
 
+[中文介绍 / Chinese README](README.zh-CN.md)
+
 A source-only Python toolkit for two practical workflows:
 
 - build SRT/ASS captions and optionally burn them into video with FFmpeg;

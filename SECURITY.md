@@ -1,5 +1,7 @@
 # Security Policy
 
+中文使用说明见 [README.zh-CN.md](README.zh-CN.md)。
+
 ## Supported versions
 
 The `main` branch is the supported public source release. No binary, model, media,
