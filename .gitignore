@@ -5,6 +5,8 @@
 !/NOTICE
 !/README.md
 !/README.zh-CN.md
+!/docs/
+!/docs/*.md
 !/SECURITY.md
 !/THIRD_PARTY_NOTICES.md
 !/pyproject.toml

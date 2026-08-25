@@ -84,6 +84,8 @@ failure rather than being replaced. Use `--files`, `--start-after`, and `--limit
 for deterministic sequential batches. The optional `exact_replacements` object
 in the style config applies only the listed literal terminology corrections,
 longest source first; it does not perform fuzzy or global character replacement.
+For detailed guidance on avoiding long-segment and silence timing errors, see
+[`docs/caption-timing.md`](docs/caption-timing.md).
 
 ## Remove subtitles
 

@@ -85,6 +85,9 @@ ASR 不会自动运行。`--asr-language zh` 用于中文，`--asr-language auto
 
 如果需要把 ASS 字幕烧录进视频，添加 `--render`。已有目标文件会触发错误，不会被覆盖。
 
+关于如何避免 ASR 长段和静音造成字幕提前出现、常驻或过早消失，参见
+[`docs/caption-timing.md`](docs/caption-timing.md)。
+
 ## 去除硬字幕
 
 去字幕分为两个阶段：先检测并检查缓存，再使用缓存执行修复。
