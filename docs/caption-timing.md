@@ -11,6 +11,7 @@ ASR segment timestamps are recognition containers, not automatically safe subtit
 5. Reject credit-watermark hallucinations, zero-duration words, punctuation-only output, and long low-confidence spans.
 6. Treat reference text as wording evidence only. It can correct names and terminology, but it cannot determine when a line is spoken.
 7. Review the first cue, every cue transition, and the final cue against the source audio before publishing. Successful video decoding does not prove synchronization.
+8. Treat low ASR confidence as a review signal, not proof of silence. Short opening or closing speech, shouted words, and speech over music can score low. Inspect opening and closing windows separately and confirm suspected dialogue with overlapping short-window recognition before filtering it out.
 
 ## Configuration guidance
 
